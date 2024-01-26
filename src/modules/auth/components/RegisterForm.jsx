@@ -7,11 +7,9 @@ import {
     Input,
     Button,
     InputGroup,
-    InputLeftAddon,
     Stack,
     Text,
 } from "@chakra-ui/react";
-import InputMask from "react-input-mask";
 import {useTranslation} from "react-i18next";
 
 export default function RegisterForm({registerRequest = () => {}, ...rest}) {
@@ -33,25 +31,21 @@ export default function RegisterForm({registerRequest = () => {}, ...rest}) {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            <FormControl mt={8} isInvalid={errors.phone}>
-                <FormLabel htmlFor="phone">{t('Phone number')}</FormLabel>
+            <FormControl mt={8} isInvalid={errors.login}>
+                <FormLabel htmlFor="login">{t('Login')}</FormLabel>
                 <InputGroup>
-                    <InputLeftAddon children="+998"/>
                     <Input
-                        id="phone"
-                        {...register("phone", {
-                            required: t("Phone number is required"),
-                            minLength: {value: 7, message: t("Minimum length should be 7")},
+                        id="login"
+                        {...register("login", {
+                            required: t("Login is required"),
                         })}
-                        type="tel"
-                        placeholder="(__) ___ __ __"
-                        mask="(99)-999-9999"
-                        as={InputMask}
+                        type="text"
+                        placeholder={t("Login")}
                     />
                 </InputGroup>
 
                 <FormErrorMessage>
-                    {errors.phone && errors.phone.message}
+                    {errors.login && errors.login.message}
                 </FormErrorMessage>
             </FormControl>
             <FormControl mt={4} isInvalid={errors.passport}>
@@ -86,8 +80,6 @@ export default function RegisterForm({registerRequest = () => {}, ...rest}) {
                         })}
                         type="tel"
                         placeholder="______________"
-                        mask="99999999999999"
-                        as={InputMask}
                     />
                 </InputGroup>
 

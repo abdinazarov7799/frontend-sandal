@@ -9,7 +9,6 @@ import { OverlayLoader } from "../../../components/loader";
 import logo from "../../../assets/images/logo.png";
 import RegisterForm from "../components/RegisterForm";
 import {useTranslation} from "react-i18next";
-import ConfirmForm from "../components/ConfirmForm";
 
 const RegisterContainer = ({ ...rest }) => {
   const {t} = useTranslation();
@@ -61,14 +60,7 @@ const RegisterContainer = ({ ...rest }) => {
       <div className="text-center">
         <Image src={logo} className={"logo"} />
       </div>
-        {
-            isEmpty(confirmToken) ? (
-                <RegisterForm registerRequest={registerRequest} />
-
-            ) : (
-                <ConfirmForm confirmRequest={confirmRequest} confirmToken={confirmToken}/>
-            )
-        }
+        <RegisterForm registerRequest={registerRequest} />
       <Box mt={4} textAlign={"center"}>
         <Link to={'/auth'}>{t("Login")}</Link>
       </Box>

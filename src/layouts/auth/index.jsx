@@ -5,15 +5,9 @@ import {
     Flex,
     Stack,
 } from '@chakra-ui/react';
-import bg from "../../assets/images/bg.png"
 
 const Styled = styled.div`
-  .bg {
-    background-image: url(${bg});
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-  }
+ 
 
   .box {
     padding: 40px 50px;

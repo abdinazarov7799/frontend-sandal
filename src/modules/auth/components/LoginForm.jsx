@@ -7,11 +7,9 @@ import {
   Input,
   Button,
   InputGroup,
-  InputLeftAddon,
   Stack,
   Text,
 } from "@chakra-ui/react";
-import InputMask from "react-input-mask";
 import {useTranslation} from "react-i18next";
 export default function LoginForm({ loginRequest = () => {}, ...rest }) {
   const {

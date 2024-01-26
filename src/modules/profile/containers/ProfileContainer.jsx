@@ -7,7 +7,7 @@ import {
     Flex,
     Heading,
     Image, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay,
-    Stat, StatGroup,
+    Stat,
     StatLabel,
     StatNumber,
     Text, useDisclosure
@@ -16,7 +16,7 @@ import React from "react";
 import useGetAllQuery from "../../../hooks/api/useGetAllQuery";
 import {KEYS} from "../../../constants/key";
 import {URLS} from "../../../constants/url";
-import ProfileImg from "../../../assets/images/profile.png";
+import ProfileImg from "../../../assets/images/user.png";
 import {useTranslation} from "react-i18next";
 import {get} from "lodash";
 import {useStore} from "../../../store";
