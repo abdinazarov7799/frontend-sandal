@@ -19,6 +19,7 @@ import {FiChevronDown, FiMenu} from "react-icons/fi";
 import {NavLink} from "react-router-dom";
 import logo from "../../../assets/images/logo.png";
 import React from "react";
+import userImg from '../../../assets/images/user.png';
 
 const MobileNav = ({
                        onOpen,
@@ -29,9 +30,8 @@ const MobileNav = ({
                    }) => {
     const {t, i18n} = useTranslation();
     const languages = [
-        {id: 1, title: "Uz"},
-        {id: 2, title: "En"},
-        {id: 3, title: "Ru"},
+        {id: 1, key: "Uz", label: "Uz lotincha"},
+        {id: 2, key: "Kr", label: "Уз крилча"},
     ];
     const setLang = useSettingsStore((state) => get(state, "setLang", () => {
     }));
@@ -96,15 +96,15 @@ const MobileNav = ({
                         p={0}
                     >
                         {languages?.map((language, index) => (
-                            get(language, "title") !== lang && (
+                            get(language, "key") !== lang && (
                                 <MenuItem
                                     key={index}
                                     onClick={() => {
-                                        changeLang(get(language, "title"));
+                                        changeLang(get(language, "key"));
                                     }}
                                 >
                                     <Flex alignItems={"center"}>
-                                        <Text ml={2}>{t(get(language, "title"))}</Text>
+                                        <Text ml={2}>{t(get(language, "label"))}</Text>
                                     </Flex>
                                 </MenuItem>
                             )
@@ -121,9 +121,7 @@ const MobileNav = ({
                             <HStack>
                                 <Avatar
                                     size={"sm"}
-                                    src={
-                                        "https://images.unsplash.com/photo-1619946794135-5bc917a27793?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9"
-                                    }
+                                    src={userImg}
                                 />
                                 <VStack
                                     display={{base: "none", md: "flex"}}
@@ -143,10 +141,10 @@ const MobileNav = ({
                             borderColor={useColorModeValue("gray.200", "gray.700")}
                         >
                             <NavLink to={'/profile'}>
-                                <MenuItem>{t("Profile")}</MenuItem>
+                                <MenuItem>{t("Profil")}</MenuItem>
                             </NavLink>
                             <MenuDivider/>
-                            <MenuItem onClick={logout}>{t("Logout")}</MenuItem>
+                            <MenuItem onClick={logout}>{t("Chqish")}</MenuItem>
                         </MenuList>
                     </Menu>
                 </Flex>

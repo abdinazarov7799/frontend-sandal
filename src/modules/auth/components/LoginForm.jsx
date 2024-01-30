@@ -18,18 +18,13 @@ export default function LoginForm({ loginRequest = () => {}, ...rest }) {
     formState: { errors, isSubmitting },
   } = useForm();
   const {t} = useTranslation();
-  const onSubmit = (values) => {
-    const phone = values.login.replace(/\D/g, "");
-    const data = {
-      login: phone,
-      password: values.password,
-    };
-    loginRequest(data);
+  const onSubmit = ({login,password}) => {
+    loginRequest({login,password});
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <FormControl mt={8} isInvalid={errors.login}>
+      <FormControl mt={2} isInvalid={errors.login}>
         <FormLabel htmlFor="login">{t('Login')}</FormLabel>
         <InputGroup>
           <Input
@@ -64,7 +59,7 @@ export default function LoginForm({ loginRequest = () => {}, ...rest }) {
       <Stack spacing={6} color={"white"}>
         <Button
           mt={8}
-          colorScheme="cyan"
+          colorScheme="blue"
           isLoading={isSubmitting}
           type="submit"
         >

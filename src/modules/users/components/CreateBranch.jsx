@@ -13,7 +13,7 @@ import {useForm} from "react-hook-form";
 import {URLS} from "../../../constants/url";
 import usePostQuery from "../../../hooks/api/usePostQuery";
 
-const CreateRole = ({ isOpen, onOpen, onClose, refetch}) => {
+const CreateBranch = ({ isOpen, onOpen, onClose, refetch}) => {
     const { t } = useTranslation();
     const {
         handleSubmit,
@@ -21,11 +21,11 @@ const CreateRole = ({ isOpen, onOpen, onClose, refetch}) => {
         formState: { errors, isSubmitting },
     } = useForm();
     const { mutate, isLoading } = usePostQuery({
-        url: URLS.auth_role,
+        url: URLS.branch_list,
     });
-    const onSubmit = ({roleName, description}) => {
+    const onSubmit = ({name, description}) => {
         mutate(
-            { url: URLS.auth_role, attributes: {roleName,description}},
+            { url: URLS.branch_list, attributes: {name,description,isActive: true}},
             {
                 onSuccess: () => {
                     refetch();
@@ -38,49 +38,43 @@ const CreateRole = ({ isOpen, onOpen, onClose, refetch}) => {
         <Modal isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
             <ModalContent>
-                <ModalHeader>{t('Create role')}</ModalHeader>
+                <ModalHeader>{t('Filial yaratish')}</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
                     <form onSubmit={handleSubmit(onSubmit)}>
-                        <FormControl isInvalid={errors.roleName}>
-                            <FormLabel htmlFor="roleName">{t('Role')}</FormLabel>
+                        <FormControl isInvalid={errors.name}>
+                            <FormLabel htmlFor="name">{t('Filial nomi')}</FormLabel>
                             <InputGroup>
                                 <Input
-                                    id="roleName"
-                                    {...register("roleName", {
-                                        required: t("Name is required"),
+                                    id="name"
+                                    {...register("name", {
+                                        required: true,
                                     })}
                                     type="text"
-                                    placeholder="Role name"
+                                    placeholder={t("Nomi")}
                                 />
                             </InputGroup>
-
-                            <FormErrorMessage>
-                                {errors.roleName && errors.login.roleName}
-                            </FormErrorMessage>
                         </FormControl>
                         <FormControl mt={5} isInvalid={errors.description}>
-                            <FormLabel htmlFor={"description"}>{t('Description')}</FormLabel>
+                            <FormLabel htmlFor={"description"}>{t('Filial tavsifi')}</FormLabel>
                             <Input
                                 id={"description"}
                                 type="text"
-                                placeholder={t("Role description")}
+                                placeholder={t("Tavsifi")}
                                 {...register("description", {
-                                    required: t("Description  is required"),
+                                    required: true,
                                 })}
                             />
-                            <FormErrorMessage>
-                                {errors.description && errors.password.description}
-                            </FormErrorMessage>
                         </FormControl>
+
                         <Stack spacing={6} color={"white"}>
                             <Button
                                 mt={8}
-                                colorScheme="cyan"
+                                colorScheme="blue"
                                 isLoading={isSubmitting}
                                 type="submit"
                             >
-                                <Text color="white">{t('Create')}</Text>
+                                <Text color="white">{t('Yaratish')}</Text>
                             </Button>
                         </Stack>
                     </form>
@@ -88,11 +82,11 @@ const CreateRole = ({ isOpen, onOpen, onClose, refetch}) => {
 
                 <ModalFooter>
                     <Button onClick={onClose}>
-                        {t('Close')}
+                        {t('Yopish')}
                     </Button>
                 </ModalFooter>
             </ModalContent>
         </Modal>
     )
 }
-export default CreateRole;
+export default CreateBranch;

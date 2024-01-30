@@ -30,14 +30,14 @@ export default function DashboardLayout({children}) {
 
     const logout = () => {
         Swal.fire({
-            title: t("Чиқишга ишончингиз комилми?"),
+            title: t("Chiqishga ishonchingiz komilmi?"),
             icon: "warning",
             backdrop: "rgba(0,0,0,0.9)",
             background: "none",
             showCancelButton: true,
             confirmButtonColor: "#13D6D1",
-            confirmButtonText: t("Ҳа албатта"),
-            cancelButtonText: t("Ортга қайтиш"),
+            confirmButtonText: t("ha albatta"),
+            cancelButtonText: t("ortga qaytish"),
             customClass: {
                 title: "title-color",
                 content: "text-color",

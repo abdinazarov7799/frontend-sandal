@@ -13,9 +13,7 @@ import AuthLayout from "../layouts/auth";
 // AUTH
 import IsAuth from "../services/auth/IsAuth";
 import IsGuest from "../services/auth/IsGuest";
-import IsHasProfile from "../services/auth/IsHasProfile";
 import LoginPage from "../modules/auth/pages/LoginPage";
-import RegisterPage from "../modules/auth/pages/RegisterPage";
 // AUTH
 
 // PROFILE
@@ -27,7 +25,11 @@ import NotFoundPage from  "../modules/auth/pages/NotFoundPage";
 // 404
 
 // PAGES
-import RolesPage from "../modules/roles/pages/RolesPage";
+import UsersPage from "../modules/users/pages/UsersPage.jsx";
+import ProductsPage from "../modules/products/pages/ProductsPage.jsx";
+import MyRequestsPage from "../modules/myRequests/pages/MyRequestsPage.jsx";
+import RequestsPage from "../modules/requests/pages/RequestsPage.jsx";
+import ProductsViewPage from "../modules/products/pages/ProductsViewPage.jsx";
 // PAGES
 
 
@@ -37,38 +39,54 @@ dayjs.extend(utc)
     <BrowserRouter>
       <Suspense fallback={<OverlayLoader />}>
         <IsAuth>
-          <IsHasProfile>
-            <Routes>
-              <Route path={"/"} element={<DashboardLayout />}>
-                <Route
-                    path={"/users-roles"}
-                    index
-                    element={<RolesPage />}
-                />
-                <Route
-                    path={"/profile"}
-                    index
-                    element={<ProfilePage />}
-                />
-                <Route
-                    path={"auth/*"}
-                    element={<Navigate to={"/profile"} replace />}
-                />
-                <Route
-                    path={"/"}
-                    element={<Navigate to={"/profile"} replace />}
-                />
-                <Route path={"*"} element={<NotFoundPage />} />
-              </Route>
-            </Routes>
-          </IsHasProfile>
+          <Routes>
+            <Route path={"/"} element={<DashboardLayout />}>
+              <Route
+                  path={"/products"}
+                  index
+                  element={<ProductsPage />}
+              />
+              <Route
+                  path={"products/view/:id"}
+                  element={<ProductsViewPage />}
+              />
+              <Route
+                  path={"/my-requests"}
+                  index
+                  element={<MyRequestsPage />}
+              />
+              <Route
+                  path={"/requests"}
+                  index
+                  element={<RequestsPage />}
+              />
+              <Route
+                  path={"/users"}
+                  index
+                  element={<UsersPage />}
+              />
+              <Route
+                  path={"/profile"}
+                  index
+                  element={<ProfilePage />}
+              />
+              <Route
+                  path={"auth/*"}
+                  element={<Navigate to={"/products"} replace />}
+              />
+              <Route
+                  path={"/"}
+                  element={<Navigate to={"/products"} replace />}
+              />
+              <Route path={"*"} element={<NotFoundPage />} />
+            </Route>
+          </Routes>
         </IsAuth>
 
         <IsGuest>
           <Routes>
             <Route path={"/auth"} element={<AuthLayout />}>
               <Route index element={<LoginPage />} />
-              <Route path={'/auth/register'} element={<RegisterPage />} />
             </Route>
             <Route path={"*"} element={<Navigate to={"/auth"} replace />} />
           </Routes>

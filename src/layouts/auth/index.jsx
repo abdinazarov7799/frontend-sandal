@@ -5,10 +5,15 @@ import {
     Flex,
     Stack,
 } from '@chakra-ui/react';
+import bg from '../../assets/images/bg.jpg';
 
-const Styled = styled.div`
- 
-
+const Styled = styled.div` 
+    .bg {
+        background-image: url(${bg});
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+    }
   .box {
     padding: 40px 50px;
     background: #FFFFFF;
@@ -16,7 +21,7 @@ const Styled = styled.div`
     border-radius: 10px;
   }
   .logo{
-    width: 250px;
+    width: 100%;
     text-align: center;
     display: inline-block;
   }

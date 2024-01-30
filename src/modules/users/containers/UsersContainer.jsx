@@ -1,19 +1,19 @@
 import {Box} from "@chakra-ui/react";
 import React from "react";
-import UserRoleList from "../components/UserRoleList";
-import RoleList from "../components/RoleList";
+import BranchList from "../components/BranchList";
+import UserList from "../components/UserList.jsx";
 
-const RolesContainer = () => {
+const UsersContainer = () => {
 
   return(
       <>
           <Box bg="white" w="100%" p={4} mb={4} borderRadius="md">
-              <UserRoleList />
+              <UserList />
           </Box>
           <Box bg="white" w="100%" p={4} borderRadius="md">
-              <RoleList />
+              <BranchList />
           </Box>
       </>
   )
 }
-export default RolesContainer
+export default UsersContainer

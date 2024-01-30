@@ -32,16 +32,16 @@ const Styled = styled.div`
 
       &:hover {
         a {
-          color: #0bc4ea;
-          border-color: #0bc4ea;
+          color: #63B4EC;
+          border-color: #63B4EC;
         }
       }
 
       &.selected {
         a {
-          background-color: #0bc4ea;
+          background-color: #63B4EC;
           color: #fff;
-          border-color: #0bc4ea;
+          border-color: #63B4EC;
         }
       }
 
@@ -52,7 +52,7 @@ const Styled = styled.div`
   }
 `;
 const Pagination = ({
-  pageCount = 2,
+  pageCount = 1,
   page = 0,
   setPage = () => {},
   ...rest

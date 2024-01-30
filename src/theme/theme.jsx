@@ -34,6 +34,10 @@ const GlobalStyles = createGlobalStyle`
     text-decoration: none;
   }
 
+  .title-color{
+    color: #fff;
+  }
+  
   body {
     color: #707070;
     font-size: 16px;
@@ -43,12 +47,12 @@ const GlobalStyles = createGlobalStyle`
   }
   
   .active > .chakra-link > div{
-    background-color: #0BC4EA !important;
+    background-color: #63B4EC !important;
     color: #fff;
   }
 
   #nprogress .bar {
-    background: #0BC4EA !important;
+    background: #63B4EC !important;
     height: 4px !important;
     z-index: 99999 !important;
   }
@@ -71,7 +75,7 @@ const GlobalStyles = createGlobalStyle`
 
   /* Handle */
   ::-webkit-scrollbar-thumb {
-    background: #0BC4EA;
+    background: #63B4EC;
     border-radius: 6px;
   }
   ::-moz-selection {

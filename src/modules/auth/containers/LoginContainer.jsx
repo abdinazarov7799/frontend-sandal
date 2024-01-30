@@ -29,7 +29,7 @@ const LoginContainer = ({ ...rest }) => {
       { url: URLS.login, attributes: data },
       {
         onSuccess: ({ data }) => {
-          setToken(get(data, "access_token", null));
+          setToken(get(data, "user.token", null));
           setAuthenticated(true);
           navigate("/auth");
           Swal.fire({
@@ -53,13 +53,10 @@ const LoginContainer = ({ ...rest }) => {
   return (
     <>
       {isLoading && <OverlayLoader />}
-      <div className="text-center">
+      <Box px={6}>
         <Image src={logo} className={"logo"} />
-      </div>
-      <LoginForm loginRequest={loginRequest} />
-      <Box mt={4} textAlign={"center"}>
-        <Link to={'/auth/register'}>{t("Register")}</Link>
       </Box>
+      <LoginForm loginRequest={loginRequest} />
     </>
   );
 };

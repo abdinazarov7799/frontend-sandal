@@ -27,18 +27,14 @@ const HasAccess = ({
                        ...rest
                    }) => {
     const [roles, setRoles] = useState([]);
-    // const [permissions, setPermissions] = useState([]);
     const user = useStore(state => get(state,'user',{}))
 
     useEffect(() => {
         if (!isEmpty(user)) {
-            setRoles(get(user, 'authorities', []));
+            setRoles(get(user, 'role', []));
             // setPermissions(uniq(get(user, 'access.permissions', [])));
         }
     }, [user])
-    // if(isEmpty(roles)){
-    //     return  <OverlayLoader />
-    // }
     return (
         <>
             {hasAccess(roles,access,cant) ?  children : <DeniedComponent />}
