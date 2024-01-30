@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {Box, Image, Text} from "@chakra-ui/react";
 import LoginForm from "../components/LoginForm";
 import { get } from "lodash";

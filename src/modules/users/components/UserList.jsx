@@ -3,14 +3,14 @@ import {
     Flex, Heading,
     IconButton,
     Stack,
-    StackDivider, Table, TableContainer, Tbody, Td,
+    Table, TableContainer, Tbody, Td,
     Th, Thead, Tr, useDisclosure
 } from "@chakra-ui/react";
-import React, from "react";
+import React from "react";
 import useGetAllQuery from "../../../hooks/api/useGetAllQuery";
 import {KEYS} from "../../../constants/key";
 import {URLS} from "../../../constants/url";
-import {get, isArray, isEmpty, isEqual} from "lodash";
+import {get, isArray, isEmpty} from "lodash";
 import Swal from "sweetalert2";
 import {FiPlus, FiX} from "react-icons/fi";
 import {useTranslation} from "react-i18next";
