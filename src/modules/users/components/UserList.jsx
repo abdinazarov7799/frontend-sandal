@@ -61,8 +61,8 @@ const UserList = () => {
 
     return(
         <>
-            <Flex justifyContent={"space-between"} mb={6}>
-                <Heading mb={4} size={'md'}>{t('Foydalanuvchilar')}</Heading>
+            <Flex justifyContent={"space-between"} alignItems={"center"} mb={6}>
+                <Heading size={'md'}>{t('Foydalanuvchilar')}</Heading>
                 <Button
                     size={"md"}
                     w={230}

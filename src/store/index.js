@@ -7,11 +7,8 @@ import storage from "../services/storage";
 let store = (set) => ({
     user: null,
     isAuthenticated: false,
-    requests: [],
     setUser: (user) => set(state => ({...state, user})),
     setAuthenticated: (isAuthenticated) => set(state => ({...state, isAuthenticated})),
-    setRequests: (requests) => set(state => ({...state, requests})),
-    addRequests: (data) => set(state => ({...state, requests: [...state.requests,...data]})),
 })
 
 let settingsStore = (set) => ({

@@ -78,9 +78,12 @@ const ProductsContainer = () => {
                                       >
                                           <CardBody>
                                               <Image
-                                                  src={get(data,'img_url','')}
-                                                  alt='Image'
-                                                  borderRadius='lg'
+                                                  src={get(data, "img_url", "")}
+                                                  height={200}
+                                                  width={"100%"}
+                                                  objectFit={"cover"}
+                                                  mx={"auto"}
+                                                  alt="Image"
                                               />
                                               <Stack mt='6' spacing='3'>
                                                   <Heading size='md'>{get(data,'name')}</Heading>

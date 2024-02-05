@@ -32,7 +32,9 @@
     "react-toastify": "^10.0.4",
     "styled-components": "^6.1.8",
     "sweetalert2": "^11.10.4",
-    "zustand": "^4.5.0"
+    "zustand": "^4.5.0",
+    "@react-buddy/ide-toolbox": "^2.4.0",
+    "@react-buddy/palette-chakra-ui": "^2.3.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",

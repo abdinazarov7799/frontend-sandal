@@ -4,7 +4,7 @@ import {
     Divider,
     Flex,
     Heading,
-    Image,
+    Image, SimpleGrid,
     Stat,
     StatLabel,
     StatNumber,
@@ -41,25 +41,22 @@ const ProfileContainer = () => {
                       {t("Ko'proq malumot")}
                   </AbsoluteCenter>
               </Box>
-              <Flex
-                  flexDirection={{
-                      sm: "column",
-                      lg: "row",
-                  }}
-                  justifyContent={"space-between"}
+              <SimpleGrid
+                  columns={{base: 2, md: 4}}
+                  gap={2}
                   borderWidth={1}
                   rounded={"lg"}
                   shadow={"sm"}
                   py={2}
                   px={4}
               >
-                  <Stat display={"flex"} justifyContent={"start"} mb={4}>
+                  <Stat display={"flex"} justifyContent={"start"}>
                       <StatLabel>{t("Login")}</StatLabel>
-                      <StatNumber fontSize={14} pr={2}>
+                      <StatNumber fontSize={14}>
                           {get(user, 'user.login','')}
                       </StatNumber>
                   </Stat>
-                  <Stat display={"flex"} justifyContent={"start"} mb={4}>
+                  <Stat display={"flex"} justifyContent={"start"}>
                       <StatLabel>{t("Telefon")}</StatLabel>
                       <StatNumber fontSize={14}>
                           {get(user, 'user.phone','')}
@@ -73,11 +70,11 @@ const ProfileContainer = () => {
                   </Stat>
                   <Stat display={"flex"} justifyContent={"start"} mb={4}>
                       <StatLabel>{t("Roli")}</StatLabel>
-                      <StatNumber fontSize={14} pr={2}>
+                      <StatNumber fontSize={14}>
                           {get(user, 'role.name','')}
                       </StatNumber>
                   </Stat>
-              </Flex>
+              </SimpleGrid>
           </Box>
       </>
   )

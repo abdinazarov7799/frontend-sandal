@@ -60,16 +60,15 @@ const MobileNav = ({
                 icon={<FiMenu/>}
             />
 
-            <Text
-                display={{base: "flex", md: "none"}}
-                fontSize="2xl"
-                fontFamily="monospace"
-                fontWeight="bold"
-            >
-                <NavLink to={"/"}>
-                    <Image className={"dashboard-logo"} src={logo}/>
-                </NavLink>
-            </Text>
+            <NavLink to={"/"} >
+                <Image
+                    className={"dashboard-logo"}
+                    width={150}
+                    display={{base: "flex", md: "none"}}
+                    src={logo}
+                />
+            </NavLink>
+
             <HStack spacing={{base: "2", md: "6"}}>
                 <Menu>
                     <MenuButton
@@ -79,13 +78,12 @@ const MobileNav = ({
                     >
                         <HStack>
                             <VStack
-                                display={{base: "flex", md: "flex"}}
+                                display={{base: "flex"}}
                                 alignItems="flex-start"
-                                ml="2"
                             >
                                 <Text fontSize="md" fontWeight={600}>{lang}</Text>
                             </VStack>
-                            <Box display={{base: "flex", md: "flex"}}>
+                            <Box>
                                 <FiChevronDown/>
                             </Box>
                         </HStack>

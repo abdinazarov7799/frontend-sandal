@@ -8,7 +8,6 @@ import {
     CardBody,
     Flex,
     Heading,
-    HStack,
     Image,
     Input,
     SimpleGrid,
@@ -22,11 +21,11 @@ import { URLS } from "../../../constants/url.js";
 import HasAccess from "../../../services/auth/HasAccess.jsx";
 import config from "../../../config.js";
 import { AiOutlinePlus } from "react-icons/ai";
-import { get, isArray, isEmpty } from "lodash";
+import {get, isArray, isEmpty, isEqual} from "lodash";
 import Pagination from "../../../components/pagination/index.jsx";
 import { CreateProduct } from "../components/CreateProduct.jsx";
-import { useStore } from "../../../store/index.js";
 import {toast} from "react-toastify";
+import useRequests from "../../../store/requests.jsx";
 
 const ProductsViewContainer = () => {
     const { id } = useParams();
@@ -34,8 +33,9 @@ const ProductsViewContainer = () => {
     const [page, setPage] = useState(0);
     const [size, setSize] = useState(9);
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const [countes, setCountes] = useState([]);
-    const addRequests = useStore((state) => get(state, "addRequests", () => {}));
+    const [order, setOrder] = useState({});
+    const requests = useRequests((state) => get(state, "requests", []));
+    const setRequests = useRequests((state) => get(state, "setRequests", () => {}));
 
     const { data, isLoading, isFetching, refetch } = useGetAllQuery({
         key: KEYS.products_list,
@@ -53,21 +53,34 @@ const ProductsViewContainer = () => {
         refetch();
     }, [page, refetch]);
 
-    const onChange = (e,data) => {
-        const {value} = e.target;
+    const onChange = (e, data) => {
+        const { value, max} = e.target;
         const { id, name, img_url } = data;
 
-        const productObj = {
-            id,
-            name,
-            img_url,
-            count: value,
-        };
-        setCountes((prevCountes) => [...prevCountes, productObj]);
+        if (+value <= +max){
+            const productObj = {
+                id,
+                name,
+                img_url,
+                count: value,
+            };
+            if (isEmpty(value)){
+                setOrder({})
+            }else {
+                setOrder(productObj);
+            }
+        }else {
+            toast.error(t("Noto'g'ri qiymat kiritdingiz"))
+        }
     };
     const addToRequest = () => {
-        toast.success(t("Arizalar ro'yxatiga qo'shildi"))
-        addRequests(countes);
+        if (!isEmpty(order)) {
+            toast.success(t("Arizalar ro'yxatiga qo'shildi"));
+            setRequests([...requests, order]);
+            setOrder({})
+        } else {
+            toast.error(t("Arizaga qo'shish uchun mahsulot tanlang"));
+        }
     };
 
     return (
@@ -98,7 +111,14 @@ const ProductsViewContainer = () => {
                                     _hover={{ backgroundColor: "#f8f8f8" }}
                                 >
                                     <CardBody>
-                                        <Image src={get(data, "img_url", "")} alt="Image" borderRadius="lg" />
+                                        <Image
+                                            src={get(data, "img_url", "")}
+                                            height={200}
+                                            width={"100%"}
+                                            objectFit={"cover"}
+                                            mx={"auto"}
+                                            alt="Image"
+                                        />
                                         <Stack mt="6" spacing="3">
                                             <Heading size="md">{get(data, "name")}</Heading>
                                             <Text>{get(data, "description")}</Text>
@@ -112,11 +132,16 @@ const ProductsViewContainer = () => {
                                                 type={"number"}
                                                 max={get(data, "count", 0)}
                                                 name={get(data,'name','')}
+                                                value={isEqual(get(data,'id'),get(order,'id')) && get(order,'count',0)}
                                                 min={0}
                                                 id={get(data, "id")}
                                                 onChange={(e) => onChange(e,data)}
                                             />
-                                            <Button ml={2} px={12} onClick={addToRequest}>
+                                            <Button
+                                                ml={2}
+                                                px={12}
+                                                onClick={addToRequest}
+                                            >
                                                 {t("Arizaga qo'shish")}
                                             </Button>
                                         </Flex>

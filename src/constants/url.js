@@ -7,4 +7,8 @@ export const URLS = {
     users_list: '/api/users',
     role_list: '/api/roles',
     branch_list: '/api/branches',
+    order_list: '/api/orders',
+    order_accept: '/api/orders/accept',
+    order_reject: '/api/orders/reject',
+    user_order_list: '/api/user-orders',
 };
