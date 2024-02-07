@@ -45,6 +45,7 @@ const CreateUser = ({ isOpen, onOpen, onClose, refetch}) => {
                     password,
                     phone,
                     branch_id,
+                    role_id: 2,
                 }
             },
             {
