@@ -110,11 +110,27 @@ export const CreateProduct = ({isOpen,onClose,refetch,category_id,...rest}) => {
                           </FormControl>
 
                           <FormControl>
+                              <FormLabel htmlFor="count">{t('Soni')}</FormLabel>
                               <NumberInput
                                   step={5}
                                   defaultValue={0}
                                   min={0}
                                   {...register("count")}
+                              >
+                                  <NumberInputField />
+                                  <NumberInputStepper>
+                                      <NumberIncrementStepper />
+                                      <NumberDecrementStepper />
+                                  </NumberInputStepper>
+                              </NumberInput>
+                          </FormControl>
+                          <FormControl>
+                              <FormLabel htmlFor="price">{t('Narxi')}</FormLabel>
+                              <NumberInput
+                                  step={5}
+                                  defaultValue={0}
+                                  min={0}
+                                  {...register("price")}
                               >
                                   <NumberInputField />
                                   <NumberInputStepper>

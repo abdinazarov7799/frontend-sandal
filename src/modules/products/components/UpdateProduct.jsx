@@ -1,0 +1,157 @@
+import {
+    Button,
+    FormControl, FormErrorMessage, FormLabel, Input, InputGroup, Modal,
+    ModalBody,
+    ModalCloseButton,
+    ModalContent, ModalFooter,
+    ModalHeader,
+    ModalOverlay, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper,
+    SimpleGrid, Text
+} from "@chakra-ui/react";
+import React from "react";
+import {useTranslation} from "react-i18next";
+import {useForm} from "react-hook-form";
+import {URLS} from "../../../constants/url.js";
+import usePutQuery from "../../../hooks/api/usePutQuery.js";
+import {KEYS} from "../../../constants/key.js";
+
+
+const UpdateProduct = ({isOpen,onClose,refetch,id,...rest}) => {
+    const { t } = useTranslation();
+    const { mutate, isLoading } = usePutQuery({
+        listKeyId: KEYS.products_list
+    });
+    const {
+        handleSubmit,
+        register,
+        formState: { errors, isSubmitting },
+    } = useForm();
+
+    const onSubmit = (values) => {
+        mutate(
+            { url: `${URLS.products_list}/${id}`, attributes: {...values} },
+            {
+                onSuccess: () => {
+                    onClose();
+                    refetch();
+                },
+            }
+        );
+    };
+  return(
+      <>
+          <Modal
+              isOpen={isOpen}
+              onClose={onClose}
+              size={{base: 'sm', md: 'xl'}}
+              {...rest}
+          >
+              <ModalOverlay />
+              <ModalContent>
+                  <ModalHeader>{t("Mahsulot malumotlarini yangilash")}</ModalHeader>
+                  <ModalCloseButton />
+                  <ModalBody>
+                      <form onSubmit={handleSubmit(onSubmit)}>
+                          <SimpleGrid columns={{base: 1}} gap={5}>
+                              <FormControl isInvalid={errors.name}>
+                                  <FormLabel htmlFor="name">{t('Mahsulot nomi')}</FormLabel>
+                                  <InputGroup>
+                                      <Input
+                                          id="name"
+                                          {...register("name", {
+                                              required: true,
+                                          })}
+                                          placeholder={t("Nomi")}
+                                      />
+                                  </InputGroup>
+                                  <FormErrorMessage>
+                                      {errors.name && errors.name.message}
+                                  </FormErrorMessage>
+                              </FormControl>
+
+                              <FormControl isInvalid={errors.description}>
+                                  <FormLabel htmlFor="description">{t('Tavsifi')}</FormLabel>
+                                  <InputGroup>
+                                      <Input
+                                          id="description"
+                                          {...register("description", {
+                                              required: true,
+                                          })}
+                                          placeholder={t("Tavsif")}
+                                      />
+                                  </InputGroup>
+                                  <FormErrorMessage>
+                                      {errors.description && errors.description.message}
+                                  </FormErrorMessage>
+                              </FormControl>
+
+                              <FormControl isInvalid={errors.img_url}>
+                                  <FormLabel htmlFor="img_url">{t('Rasm havolasi')}</FormLabel>
+                                  <InputGroup>
+                                      <Input
+                                          id="img_url"
+                                          {...register("img_url", {
+                                              required: true,
+                                          })}
+                                          placeholder={t("URL")}
+                                      />
+                                  </InputGroup>
+                                  <FormErrorMessage>
+                                      {errors.img_url && errors.img_url.message}
+                                  </FormErrorMessage>
+                              </FormControl>
+
+                              <FormControl>
+                                  <FormLabel htmlFor="count">{t('Soni')}</FormLabel>
+                                  <NumberInput
+                                      step={5}
+                                      defaultValue={0}
+                                      min={0}
+                                      {...register("count")}
+                                  >
+                                      <NumberInputField />
+                                      <NumberInputStepper>
+                                          <NumberIncrementStepper />
+                                          <NumberDecrementStepper />
+                                      </NumberInputStepper>
+                                  </NumberInput>
+                              </FormControl>
+                              <FormControl>
+                                  <FormLabel htmlFor="price">{t('Narxi')}</FormLabel>
+                                  <NumberInput
+                                      step={5}
+                                      defaultValue={0}
+                                      min={0}
+                                      {...register("price")}
+                                  >
+                                      <NumberInputField />
+                                      <NumberInputStepper>
+                                          <NumberIncrementStepper />
+                                          <NumberDecrementStepper />
+                                      </NumberInputStepper>
+                                  </NumberInput>
+                              </FormControl>
+
+                          </SimpleGrid>
+                          <Button
+                              mt={4}
+                              isLoading={isSubmitting}
+                              type="submit"
+                              width={"100%"}
+                              colorScheme={'blue'}
+                          >
+                              <Text color="white">{t("Yangilash")}</Text>
+                          </Button>
+                      </form>
+                  </ModalBody>
+                  <ModalFooter>
+                      <Button onClick={onClose}>
+                          {t('Qaytish')}
+                      </Button>
+                  </ModalFooter>
+              </ModalContent>
+          </Modal>
+      </>
+  )
+}
+export default UpdateProduct

@@ -68,7 +68,7 @@ const BranchList = () => {
                 <Heading size={'md'}>{t('Filiallar')}</Heading>
                 <Button
                     size={"md"}
-                    w={160}
+                    w={170}
                     justifyContent={"space-around"}
                     onClick={onOpen}>
                     <FiPlus /> {t("Filial qo'shish")}

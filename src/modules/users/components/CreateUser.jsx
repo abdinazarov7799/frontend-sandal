@@ -133,7 +133,7 @@ const CreateUser = ({ isOpen, onOpen, onClose, refetch}) => {
                         </FormControl>
 
                         <FormControl my={2} isInvalid={errors.branch_id}>
-                            <FormLabel htmlFor="branch_id">{t('Foydalanuvchi familiyasi')}</FormLabel>
+                            <FormLabel htmlFor="branch_id">{t('Filial')}</FormLabel>
                             <Select
                                 onChange={(e) => setBranchId(e.target.value)}
                                 id={"branch_id"}
@@ -167,7 +167,7 @@ const CreateUser = ({ isOpen, onOpen, onClose, refetch}) => {
 
                 <ModalFooter>
                     <Button onClick={onClose}>
-                        {t('Close')}
+                        {t('Yopish')}
                     </Button>
                 </ModalFooter>
             </ModalContent>

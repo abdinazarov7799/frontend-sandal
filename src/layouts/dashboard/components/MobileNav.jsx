@@ -20,6 +20,7 @@ import {NavLink} from "react-router-dom";
 import logo from "../../../assets/images/logo.png";
 import React from "react";
 import userImg from '../../../assets/images/user.png';
+import storage from "../../../services/storage/index.js";
 
 const MobileNav = ({
                        onOpen,
@@ -33,11 +34,11 @@ const MobileNav = ({
         {id: 1, key: "Uz", label: "Uz lotincha"},
         {id: 2, key: "Kr", label: "Уз крилча"},
     ];
-    const setLang = useSettingsStore((state) => get(state, "setLang", () => {
-    }));
+    const setLang = useSettingsStore((state) => get(state, "setLang", () => {}));
     const lang = useSettingsStore((state) => get(state, "lang"));
     const changeLang = (code) => {
         setLang(code);
+        storage.set("lang",code)
         return i18n.changeLanguage(code);
     };
     return (

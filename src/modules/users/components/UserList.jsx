@@ -65,11 +65,11 @@ const UserList = () => {
                 <Heading size={'md'}>{t('Foydalanuvchilar')}</Heading>
                 <Button
                     size={"md"}
-                    w={230}
+                    w={120}
                     justifyContent={"space-around"}
                     onClick={onOpen}
                 >
-                    <FiPlus /> {t('Foydalanuvchi yaratish')}
+                    <FiPlus /> {t('Yaratish')}
                 </Button>
             </Flex>
             <CreateUser
@@ -89,6 +89,7 @@ const UserList = () => {
                                 <Thead>
                                     <Tr>
                                         <Th>{t("Login")}</Th>
+                                        <Th>{t("Filial")}</Th>
                                         <Th>{t("Ism")}</Th>
                                         <Th>{t("Familiya")}</Th>
                                         <Th>{t("Telefon")}</Th>
@@ -102,6 +103,7 @@ const UserList = () => {
                                         get(data,'data',[])?.map((user,i) => (
                                             <Tr key={i+1} _hover={{bg: "rgba(172,222,233,0.49)"}} cursor={"pointer"}>
                                                 <Td>{get(user,'login','-')}</Td>
+                                                <Td>{get(user,'Branch.name','-')}</Td>
                                                 <Td>{get(user,'firstname','-')}</Td>
                                                 <Td>{get(user,'lastname','-')}</Td>
                                                 <Td>{get(user,'phone','-')}</Td>

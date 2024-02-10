@@ -45,22 +45,26 @@ const RequestHistoryList = ({user_id}) => {
               <Heading size={'md'} textAlign={"center"} mb={6}>{t("Jarayondagi arizalar")}</Heading>
               {
                   (!isEmpty(get(data,'data.orders',[])) && isArray(get(data,'data.orders'))) ? (
-                      <Stack>
+                      <Stack overflowX={"scroll"}>
                           <Accordion allowToggle>
                               {
                                   get(data,'data.orders',[]).map((order) => (
                                       <AccordionItem key={get(order,'id')}>
                                           <h2>
                                               <AccordionButton>
-                                                  <Flex as="span" flex='1' textAlign='left'>
+                                                  <Flex as="span" flex='1' textAlign='left' alignItems={"center"}>
                                                       <Text>
                                                           {t("Yaratilgan vaqti")}
                                                       </Text>
                                                       <Text mx={4}>
                                                           {dayjs(get(order,'createdAt','-')).format("DD-MM-YYYY HH:mm:ss")}
                                                       </Text>
-                                                      <Badge colorScheme='green' py={1}>
-                                                          {get(order,'status')}
+                                                      <Badge colorScheme='green'
+                                                             display={"flex"}
+                                                             alignItems={"center"}
+                                                             height={'30px'}
+                                                      >
+                                                          {t(get(order,'status'))}
                                                       </Badge>
                                                   </Flex>
                                                   <AccordionIcon />

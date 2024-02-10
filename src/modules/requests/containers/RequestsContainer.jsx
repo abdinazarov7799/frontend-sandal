@@ -75,71 +75,75 @@ const RequestsContainer = () => {
             {
                 (!isEmpty(get(data,'data.orders',[])) && isArray(get(data,'data.orders'))) ? (
                     <Stack>
-                        <Accordion allowToggle>
+                        <Accordion allowToggle overflowX={"scroll"}>
                             {
                                 get(data,'data.orders',[]).map((order) => (
                                     <AccordionItem key={get(order,'id')}>
-                                        <h2>
-                                            <AccordionButton>
-                                                <Flex
-                                                    flex='1'
-                                                    textAlign='left'
-                                                    alignItems={"center"}
-                                                    justifyContent={"space-between"}
-                                                >
-                                                    <Flex>
-                                                        <Text fontWeight={600}>
-                                                            {t("Filial")}:
-                                                        </Text>
-                                                        <Text mx={1}>
-                                                            {get(order,'branch_name','-')}
-                                                        </Text>
-                                                        <Text ml={2} fontWeight={600}>
-                                                            {t("Yaratgan")}:
-                                                        </Text>
-                                                        <Text mx={1}>
-                                                            {get(order,'user_firstname','-')}
-                                                        </Text>
-                                                        <Text>
-                                                            {get(order,'user_lastname','-')}
-                                                        </Text>
-                                                        <Text ml={2} fontWeight={600}>
-                                                            {t("Yaratilgan vaqti")}:
-                                                        </Text>
-                                                        <Text mx={2}>
-                                                            {dayjs(get(order,'createdAt','-')).format("DD-MM-YYYY HH:mm:ss")}
-                                                        </Text>
-                                                        <Text fontWeight={600}>
-                                                            {t("Holati")}
-                                                        </Text>
-                                                        <Badge colorScheme='green' py={1} mx={2}>
-                                                            {get(order,'status')}
-                                                        </Badge>
-                                                    </Flex>
-                                                    <Flex>
-                                                        <Button
-                                                            colorScheme={"green"}
-                                                            size={"sm"}
-                                                            variant='outline'
-                                                            ml={1}
-                                                            onClick={() => acceptOrder(get(order,'id'))}
-                                                        >
-                                                            {t("Qabul qilish")}
-                                                        </Button>
-                                                        <Button
-                                                            colorScheme={"red"}
-                                                            size={"sm"}
-                                                            mx={3}
-                                                            variant='outline'
-                                                            onClick={() => rejectOrder(get(order,'id'))}
-                                                        >
-                                                            {t("Rad etish")}
-                                                        </Button>
-                                                    </Flex>
+                                        <AccordionButton>
+                                            <Flex
+                                                flex='1'
+                                                textAlign='left'
+                                                alignItems={"center"}
+                                                justifyContent={"space-between"}
+                                            >
+                                                <Flex alignItems={"center"}>
+                                                    <Text fontWeight={600}>
+                                                        {t("Filial")}:
+                                                    </Text>
+                                                    <Text mx={1}>
+                                                        {get(order,'branch_name','-')}
+                                                    </Text>
+                                                    <Text ml={2} fontWeight={600}>
+                                                        {t("Yaratgan")}:
+                                                    </Text>
+                                                    <Text mx={1}>
+                                                        {get(order,'user_firstname','-')}
+                                                    </Text>
+                                                    <Text>
+                                                        {get(order,'user_lastname','-')}
+                                                    </Text>
+                                                    <Text ml={2} fontWeight={600} w={140}>
+                                                        {t("Yaratilgan vaqti")}:
+                                                    </Text>
+                                                    <Text mx={2} w={160}>
+                                                        {dayjs(get(order,'createdAt','-')).format("DD-MM-YYYY HH:mm:ss")}
+                                                    </Text>
+                                                    <Text fontWeight={600}>
+                                                        {t("Holati")}
+                                                    </Text>
+                                                    <Badge
+                                                        colorScheme='green'
+                                                        mx={2}
+                                                        display={"flex"}
+                                                        alignItems={"center"}
+                                                        height={'30px'}
+                                                    >
+                                                        {t(get(order,'status'))}
+                                                    </Badge>
                                                 </Flex>
-                                                <AccordionIcon />
-                                            </AccordionButton>
-                                        </h2>
+                                                <Flex>
+                                                    <Button
+                                                        colorScheme={"green"}
+                                                        size={"sm"}
+                                                        variant='outline'
+                                                        ml={1}
+                                                        onClick={() => acceptOrder(get(order,'id'))}
+                                                    >
+                                                        {t("Qabul qilish")}
+                                                    </Button>
+                                                    <Button
+                                                        colorScheme={"red"}
+                                                        size={"sm"}
+                                                        mx={3}
+                                                        variant='outline'
+                                                        onClick={() => rejectOrder(get(order,'id'))}
+                                                    >
+                                                        {t("Rad etish")}
+                                                    </Button>
+                                                </Flex>
+                                            </Flex>
+                                            <AccordionIcon />
+                                        </AccordionButton>
                                         <AccordionPanel pb={4}>
                                             {
                                                 get(order,'items',[]).map((item) => (

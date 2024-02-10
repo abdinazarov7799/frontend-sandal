@@ -26,6 +26,10 @@ import Pagination from "../../../components/pagination/index.jsx";
 import { CreateProduct } from "../components/CreateProduct.jsx";
 import {toast} from "react-toastify";
 import useRequests from "../../../store/requests.jsx";
+import Swal from "sweetalert2";
+import usePostQuery from "../../../hooks/api/usePostQuery.js";
+import useDeleteQuery from "../../../hooks/api/useDeleteQuery.js";
+import UpdateProduct from "../components/UpdateProduct.jsx";
 
 const ProductsViewContainer = () => {
     const { id } = useParams();
@@ -33,6 +37,7 @@ const ProductsViewContainer = () => {
     const [page, setPage] = useState(0);
     const [size, setSize] = useState(9);
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const { isOpen:updateIsOpen, onOpen:updateOnOpen, onClose:updateOnClose } = useDisclosure();
     const [order, setOrder] = useState({});
     const requests = useRequests((state) => get(state, "requests", []));
     const setRequests = useRequests((state) => get(state, "setRequests", () => {}));
@@ -47,6 +52,10 @@ const ProductsViewContainer = () => {
                 category_id: id,
             },
         },
+    });
+
+    const { mutate } = useDeleteQuery({
+        listKeyId: KEYS.products_list
     });
 
     useEffect(() => {
@@ -83,6 +92,29 @@ const ProductsViewContainer = () => {
         }
     };
 
+    const deleteProduct = (id) => {
+        Swal.fire({
+            title: t("O'chirishga ishonchigiz komilmi?"),
+            icon: "warning",
+            backdrop: "rgba(0,0,0,0.9)",
+            background: "none",
+            color: "#fff",
+            showCancelButton: true,
+            confirmButtonColor: "#e22f2f",
+            confirmButtonText: t("Ha"),
+            cancelButtonText: t("Qaytish"),
+            customClass: {
+                title: "title-color",
+                content: "text-color",
+                icon: "icon-color",
+            },
+        }).then((result) => {
+            if (result.isConfirmed) {
+                mutate({url: `${URLS.products_list}/${id}`})
+            }
+        });
+    }
+
     return (
         <>
             <Box bg={"white"} p={4} width="100%" borderRadius="md">
@@ -95,7 +127,7 @@ const ProductsViewContainer = () => {
                             leftIcon={<AiOutlinePlus />}
                             onClick={onOpen}
                         >
-                            {t("Yangi mahsulot qo'shish")}
+                            {t("Yaratish")}
                         </Button>
                         <CreateProduct isOpen={isOpen} onClose={onClose} refetch={refetch} category_id={id} />
                     </HasAccess>
@@ -123,10 +155,13 @@ const ProductsViewContainer = () => {
                                             <Heading size="md">{get(data, "name")}</Heading>
                                             <Text>{get(data, "description")}</Text>
                                             <Text>
-                                                {t("Bor:")} {get(data, "count", 0)} {t("dona")}
+                                                {t("Qoldi")}: {get(data, "count", 0)} {t("dona")}
+                                            </Text>
+                                            <Text>
+                                                {t("Narxi")}: {Intl.NumberFormat('en-US').format(get(data,'price',0))} {t("so'm")}
                                             </Text>
                                         </Stack>
-                                        <Flex alignItems={"center"} justifyContent={"space-between"} mt={4}>
+                                        <Flex alignItems={"center"} justifyContent={"space-between"} mt={4} mb={2}>
                                             <Input
                                                 placeholder={t("Soni")}
                                                 type={"number"}
@@ -145,6 +180,17 @@ const ProductsViewContainer = () => {
                                                 {t("Arizaga qo'shish")}
                                             </Button>
                                         </Flex>
+                                        <HasAccess access={[config.ROLES.ADMIN]}>
+                                            <SimpleGrid columns={2} gap={2}>
+                                                <Button colorScheme={"blue"} onClick={updateOnOpen}>
+                                                    {t("O'zgartirish")}
+                                                </Button>
+                                                <Button colorScheme={"red"} onClick={() => deleteProduct(get(data, "id"))}>
+                                                    {t("O'chirish")}
+                                                </Button>
+                                            </SimpleGrid>
+                                            <UpdateProduct isOpen={updateIsOpen} onClose={updateOnClose} refetch={refetch} id={get(data, "id")} />
+                                        </HasAccess>
                                     </CardBody>
                                 </Card>
                             ))}

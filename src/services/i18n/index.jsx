@@ -1,28 +1,30 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
-import LanguageDetector from "i18next-browser-languagedetector";
-import I18NextHttpBackend from "i18next-http-backend";
 import config from "../../config";
 import storage from "../storage";
-const i18config = i18n
+import kr from '../../assets/lang/kr.json'
+import uz from '../../assets/lang/uz.json'
+
+
+const resources = {
+    Kr: {
+        translation: kr
+    },
+    Uz: {
+        translation: uz
+    }
+}
+
+i18n
     .use(initReactI18next)
-    .use(LanguageDetector)
-    .use(I18NextHttpBackend)
     .init({
+        resources,
         lng: storage.get("lang") || config.DEFAULT_APP_LANG,
         fallbackLng: storage.get("lang") || config.DEFAULT_APP_LANG,
-        saveMissing: true,
-        detection: {
-            order: ["localStorage"],
-            lookupLocalStorage: "lang",
-        },
-        react: {
-            useSuspense: true,
-            wait: true,
-        },
-        backend: {
-            addPath: `http://localhost:3000/api/createText`,
-        },
+
+        interpolation: {
+            escapeValue: false
+        }
     });
 
-export default i18config;
+export default i18n;

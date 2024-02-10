@@ -58,7 +58,7 @@ const ProductsContainer = () => {
                           leftIcon={<AiOutlinePlus />}
                           onClick={onOpen}
                       >
-                          {t("Yangi kategoriya qo'shish")}
+                          {t("Yaratish")}
                       </Button>
                       <CreateProject isOpen={isOpen} onClose={onClose} refetch={refetch}/>
                   </HasAccess>
