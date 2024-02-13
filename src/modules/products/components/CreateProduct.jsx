@@ -124,6 +124,7 @@ export const CreateProduct = ({isOpen,onClose,refetch,category_id,...rest}) => {
                                   </NumberInputStepper>
                               </NumberInput>
                           </FormControl>
+
                           <FormControl>
                               <FormLabel htmlFor="price">{t('Narxi')}</FormLabel>
                               <NumberInput

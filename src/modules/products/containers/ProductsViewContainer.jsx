@@ -15,7 +15,6 @@ import {
     Text,
     useDisclosure,
 } from "@chakra-ui/react";
-import useGetAllQuery from "../../../hooks/api/useGetAllQuery.js";
 import { KEYS } from "../../../constants/key.js";
 import { URLS } from "../../../constants/url.js";
 import HasAccess from "../../../services/auth/HasAccess.jsx";
@@ -27,9 +26,9 @@ import { CreateProduct } from "../components/CreateProduct.jsx";
 import {toast} from "react-toastify";
 import useRequests from "../../../store/requests.jsx";
 import Swal from "sweetalert2";
-import usePostQuery from "../../../hooks/api/usePostQuery.js";
 import useDeleteQuery from "../../../hooks/api/useDeleteQuery.js";
 import UpdateProduct from "../components/UpdateProduct.jsx";
+import usePaginateQuery from "../../../hooks/api/usePaginateQuery.js";
 
 const ProductsViewContainer = () => {
     const { id } = useParams();
@@ -42,25 +41,21 @@ const ProductsViewContainer = () => {
     const requests = useRequests((state) => get(state, "requests", []));
     const setRequests = useRequests((state) => get(state, "setRequests", () => {}));
 
-    const { data, isLoading, isFetching, refetch } = useGetAllQuery({
+    const { data, isLoading, isFetching, refetch } = usePaginateQuery({
         key: KEYS.products_list,
         url: URLS.products_list,
         params: {
             params: {
-                page,
                 size,
                 category_id: id,
             },
         },
+        page
     });
 
     const { mutate } = useDeleteQuery({
         listKeyId: KEYS.products_list
     });
-
-    useEffect(() => {
-        refetch();
-    }, [page, refetch]);
 
     const onChange = (e, data) => {
         const { value, max} = e.target;

@@ -6,7 +6,7 @@ import {
     ModalCloseButton,
     ModalContent, ModalFooter,
     ModalHeader,
-    ModalOverlay, Select, SelectField, SimpleGrid, Text
+    ModalOverlay, SimpleGrid, Text
 } from "@chakra-ui/react";
 import React from "react";
 import {useTranslation} from "react-i18next";

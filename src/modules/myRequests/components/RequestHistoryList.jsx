@@ -1,7 +1,6 @@
-import useGetAllQuery from "../../../hooks/api/useGetAllQuery.js";
 import {KEYS} from "../../../constants/key.js";
 import {URLS} from "../../../constants/url.js";
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {get, isArray, isEmpty} from "lodash";
 import Pagination from "../../../components/pagination/index.jsx";
 import {
@@ -16,6 +15,7 @@ import {
 } from "@chakra-ui/react";
 import {useTranslation} from "react-i18next";
 import dayjs from "dayjs";
+import usePaginateQuery from "../../../hooks/api/usePaginateQuery.js";
 
 
 const RequestHistoryList = ({user_id}) => {
@@ -23,21 +23,17 @@ const RequestHistoryList = ({user_id}) => {
     const [size, setSize] = useState(10);
     const { t } = useTranslation();
 
-    const { data, isLoading,refetch } = useGetAllQuery({
+    const { data, isLoading,refetch } = usePaginateQuery({
         key: KEYS.user_order_list,
         url: URLS.user_order_list,
         params: {
             params: {
-                page,
                 size,
                 userId: user_id,
             },
         },
+        page
     });
-
-    useEffect(() => {
-        refetch();
-    }, [page]);
 
     return(
       <>
@@ -66,6 +62,11 @@ const RequestHistoryList = ({user_id}) => {
                                                       >
                                                           {t(get(order,'status'))}
                                                       </Badge>
+                                                      {
+                                                          !isEmpty(get(order,'reject_comment')) && (
+                                                              <Text ml={2}>{t("Sabab")}: {get(order,'reject_comment','')}</Text>
+                                                          )
+                                                      }
                                                   </Flex>
                                                   <AccordionIcon />
                                               </AccordionButton>

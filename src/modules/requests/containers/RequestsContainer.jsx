@@ -1,4 +1,3 @@
-import useGetAllQuery from "../../../hooks/api/useGetAllQuery.js";
 import {URLS} from "../../../constants/url.js";
 import {KEYS} from "../../../constants/key.js";
 import React, {useEffect, useState} from "react";
@@ -9,16 +8,18 @@ import {
     AccordionItem, AccordionPanel,
     Badge,
     Box, Button, Divider,
-    Flex,
-    Heading, Image,
+    Flex, FocusLock,
+    Heading, IconButton, Image, Popover, PopoverArrow, PopoverCloseButton, PopoverContent, PopoverTrigger,
     Stack,
-    Text
+    Text, useDisclosure
 } from "@chakra-ui/react";
 import {get, isArray, isEmpty} from "lodash";
 import dayjs from "dayjs";
 import Pagination from "../../../components/pagination/index.jsx";
 import {useTranslation} from "react-i18next";
 import usePostQuery from "../../../hooks/api/usePostQuery.js";
+import usePaginateQuery from "../../../hooks/api/usePaginateQuery.js";
+import RejectForm from "../components/RejectForm.jsx";
 
 
 const RequestsContainer = () => {
@@ -26,42 +27,25 @@ const RequestsContainer = () => {
     const [size, setSize] = useState(10);
     const { t } = useTranslation();
 
-    const { data, isLoading,refetch } = useGetAllQuery({
+    const { data, isLoading,refetch } = usePaginateQuery({
         key: KEYS.order_list,
         url: URLS.order_list,
         params: {
             params: {
-                page,
                 size,
             }
-        }
+        },
+        page
     });
     const { mutate:acceptMutate } = usePostQuery({
         url: URLS.order_accept,
         listKeyId: KEYS.order_list,
     });
-    const { mutate:rejectMutate } = usePostQuery({
-        url: URLS.order_reject,
-        listKeyId: KEYS.order_list,
-    });
-
-    useEffect(() => {
-        refetch()
-    }, [page]);
 
     const acceptOrder = (id) => {
         acceptMutate(
             {
                 url: URLS.order_accept,
-                attributes: {
-                    id
-                }},
-        );
-    }
-    const rejectOrder = (id) => {
-        rejectMutate(
-            {
-                url: URLS.order_reject,
                 attributes: {
                     id
                 }},
@@ -131,15 +115,7 @@ const RequestsContainer = () => {
                                                     >
                                                         {t("Qabul qilish")}
                                                     </Button>
-                                                    <Button
-                                                        colorScheme={"red"}
-                                                        size={"sm"}
-                                                        mx={3}
-                                                        variant='outline'
-                                                        onClick={() => rejectOrder(get(order,'id'))}
-                                                    >
-                                                        {t("Rad etish")}
-                                                    </Button>
+                                                    <RejectForm id={get(order,'id')}/>
                                                 </Flex>
                                             </Flex>
                                             <AccordionIcon />

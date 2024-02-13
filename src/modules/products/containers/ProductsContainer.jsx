@@ -3,7 +3,6 @@ import {useEffect, useState} from "react";
 import {get, isArray, isEmpty} from "lodash";
 import {KEYS} from "../../../constants/key.js";
 import {URLS} from "../../../constants/url.js";
-import useGetAllQuery from "../../../hooks/api/useGetAllQuery.js";
 import {useTranslation} from "react-i18next";
 import {useNavigate} from "react-router-dom";
 import {
@@ -23,7 +22,9 @@ import {AiOutlinePlus} from "react-icons/ai";
 import {CreateProject} from "../components/CreateCategory.jsx";
 import HasAccess from "../../../services/auth/HasAccess.jsx";
 import config from "../../../config.js";
-
+import usePaginateQuery from "../../../hooks/api/usePaginateQuery.js";
+import Swal from "sweetalert2";
+import useDeleteQuery from "../../../hooks/api/useDeleteQuery.js";
 
 const ProductsContainer = () => {
     const { t } = useTranslation();
@@ -31,20 +32,43 @@ const ProductsContainer = () => {
     const [page, setPage] = useState(0);
     const [size, setSize] = useState(9);
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const {data,isLoading,isFetching,refetch} = useGetAllQuery({
+    const {data,isLoading,isFetching,refetch} = usePaginateQuery({
         key: KEYS.category_list,
         url: URLS.category_list,
         params: {
             params: {
-                page,
                 size,
             }
-        }
+        },
+        page
     });
 
-    useEffect(() => {
-        refetch();
-    }, [page]);
+    const { mutate } = useDeleteQuery({
+        listKeyId: KEYS.category_list
+    });
+
+    const deleteCategory = (id) => {
+        Swal.fire({
+            title: t("O'chirishga ishonchigiz komilmi?"),
+            icon: "warning",
+            backdrop: "rgba(0,0,0,0.9)",
+            background: "none",
+            color: "#fff",
+            showCancelButton: true,
+            confirmButtonColor: "#e22f2f",
+            confirmButtonText: t("Ha"),
+            cancelButtonText: t("Qaytish"),
+            customClass: {
+                title: "title-color",
+                content: "text-color",
+                icon: "icon-color",
+            },
+        }).then((result) => {
+            if (result.isConfirmed) {
+                mutate({url: `${URLS.category_list}/${id}`})
+            }
+        });
+    }
 
   return(
       <>
@@ -89,6 +113,16 @@ const ProductsContainer = () => {
                                                   <Heading size='md'>{get(data,'name')}</Heading>
                                                   <Text>{get(data,'description')}</Text>
                                               </Stack>
+                                              <HasAccess access={[config.ROLES.ADMIN]}>
+                                                  <Button
+                                                      colorScheme={"red"}
+                                                      mt={3}
+                                                      w={'100%'}
+                                                      onClick={() => deleteCategory(get(data, "id"))}
+                                                  >
+                                                      {t("O'chirish")}
+                                                  </Button>
+                                              </HasAccess>
                                           </CardBody>
                                       </Card>
                                   ))
