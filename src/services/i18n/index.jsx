@@ -4,6 +4,7 @@ import config from "../../config";
 import storage from "../storage";
 import kr from '../../assets/lang/kr.json'
 import uz from '../../assets/lang/uz.json'
+import ru from '../../assets/lang/ru.json'
 
 
 const resources = {
@@ -12,6 +13,9 @@ const resources = {
     },
     Uz: {
         translation: uz
+    },
+    Ru: {
+        translation: ru
     }
 }
 

@@ -33,6 +33,7 @@ const MobileNav = ({
     const languages = [
         {id: 1, key: "Uz", label: "Uz lotincha"},
         {id: 2, key: "Kr", label: "Уз крилча"},
+        {id: 2, key: "Ru", label: "Русский"},
     ];
     const setLang = useSettingsStore((state) => get(state, "setLang", () => {}));
     const lang = useSettingsStore((state) => get(state, "lang"));
