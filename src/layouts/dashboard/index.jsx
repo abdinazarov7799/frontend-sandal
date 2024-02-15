@@ -27,7 +27,7 @@ export default function DashboardLayout({children}) {
     );
 
     const navigate = useNavigate();
-
+    console.log(user,'user')
     const logout = () => {
         Swal.fire({
             title: t("Chiqishga ishonchingiz komilmi?"),
@@ -74,7 +74,7 @@ export default function DashboardLayout({children}) {
             </Drawer>
             <MobileNav
                 onOpen={onOpen}
-                username={get(user, "username")}
+                username={get(user, "user.login")}
                 logout={logout}
             />
             <Box ml={{base: 0, md: 60}} p="4">
