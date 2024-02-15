@@ -13,7 +13,7 @@ import {
     Stack,
     Text, useDisclosure
 } from "@chakra-ui/react";
-import {get, isArray, isEmpty} from "lodash";
+import {get, isArray, isEmpty, isEqual} from "lodash";
 import dayjs from "dayjs";
 import Pagination from "../../../components/pagination/index.jsx";
 import {useTranslation} from "react-i18next";
@@ -96,7 +96,7 @@ const RequestsContainer = () => {
                                                         {t("Holati")}
                                                     </Text>
                                                     <Badge
-                                                        colorScheme='green'
+                                                        colorScheme={isEqual(get(order,'status'),'rejected') ? 'red' : 'green'}
                                                         mx={2}
                                                         display={"flex"}
                                                         alignItems={"center"}

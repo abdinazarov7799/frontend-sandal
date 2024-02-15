@@ -1,7 +1,7 @@
 import {KEYS} from "../../../constants/key.js";
 import {URLS} from "../../../constants/url.js";
 import React, {useState} from "react";
-import {get, isArray, isEmpty} from "lodash";
+import {get, isArray, isEmpty, isEqual} from "lodash";
 import Pagination from "../../../components/pagination/index.jsx";
 import {
     Accordion,
@@ -55,7 +55,7 @@ const RequestHistoryList = ({user_id}) => {
                                                       <Text mx={4}>
                                                           {dayjs(get(order,'createdAt','-')).format("DD-MM-YYYY HH:mm:ss")}
                                                       </Text>
-                                                      <Badge colorScheme='green'
+                                                      <Badge colorScheme={isEqual(get(order,'status'),'rejected') ? 'red' : 'green'}
                                                              display={"flex"}
                                                              alignItems={"center"}
                                                              height={'30px'}
